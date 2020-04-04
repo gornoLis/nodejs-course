@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const User = require('./user.model');
 const usersService = require('./user.service');
-const uuid = require('uuid');
 
 router
   .route('/')
@@ -11,14 +10,11 @@ router
     res.json(users.map(User.toResponse));
   })
   .post((req, res) => {
-    const user = usersService.addUser(uuid(), req.body);
+    const user = usersService.addUser(req.body);
     if (user) {
-      res.json(User.toResponse(user));
-      res.status(200);
-      res.end('The user has been created');
+      res.status(200).json(User.toResponse(user));
     } else {
-      res.status(404);
-      res.end('User not found');
+      res.status(400).end('Bad request');
     }
   });
 
@@ -27,32 +23,25 @@ router
   .get((req, res) => {
     const user = usersService.getUser(req.params.id);
     if (user) {
-      res.status(200);
-      res.json(User.toResponse(user));
+      res.status(200).json(User.toResponse(user));
     } else {
-      res.status(404);
-      res.end('User not found');
+      res.status(404).end('User not found');
     }
   })
   .put((req, res) => {
     const user = usersService.updateUser(req.params.id, req.body);
     if (user) {
-      res.status(200);
-      res.json(User.toResponse(user));
-      res.end('The user has been updated.');
+      res.status(200).json(User.toResponse(user));
     } else {
-      res.status(404);
-      res.end('Bad request');
+      res.status(400).end('Bad request');
     }
   })
   .delete((req, res) => {
     const existUser = usersService.deleteUser(req.params.id);
     if (existUser) {
-      res.status(204);
-      res.end('The user has been deleted');
+      res.status(204).end('The user has been deleted');
     } else {
-      res.status(404);
-      res.end('User not found');
+      res.status(404).end('User not found');
     }
   });
 

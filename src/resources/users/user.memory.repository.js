@@ -1,4 +1,11 @@
-const data = [];
+const data = [
+  {
+    id: '3242872f-4afd-45d4-8b9e-88c9d1ba95da',
+    name: 'name',
+    login: 'user1',
+    password: 'safsf2323'
+  }
+];
 
 const getAll = async () => {
   // TODO: mock implementation. should be replaced during task development
@@ -9,8 +16,8 @@ const getUser = id => {
   return data.find(one => one.id === id);
 };
 
-const addUser = (id, params) => {
-  const { name, login, password } = params;
+const addUser = user => {
+  const { id, name, login, password } = user;
   data.push({
     id,
     name,
