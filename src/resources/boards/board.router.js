@@ -8,8 +8,6 @@ router
     res.json(boards);
   })
   .post((req, res) => {
-    /* const a = req.body;
-		console.log(columns(a.columns));*/
     const board = boardsService.addBoard(req.body);
     if (board) {
       res.status(200).json(board);

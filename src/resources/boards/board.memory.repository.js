@@ -24,8 +24,6 @@ const addBoard = params => {
   return getBoard(id);
 };
 
-// TODO не изменить id column
-// TODO изменить columns,если найден id
 const updateBoard = (id, params) => {
   const { title, columns } = params;
   const index = data.findIndex(item => item.id === id);

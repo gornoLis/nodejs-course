@@ -37,8 +37,8 @@ router
     }
   })
   .delete((req, res) => {
-    const existUser = usersService.deleteUser(req.params.id);
-    if (existUser) {
+    const isDeleted = usersService.deleteUser(req.params.id);
+    if (isDeleted) {
       res.status(204).end('The user has been deleted');
     } else {
       res.status(404).end('User not found');
