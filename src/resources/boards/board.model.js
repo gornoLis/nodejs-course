@@ -14,13 +14,20 @@ class Board {
   } = {}) {
     this.id = id;
     this.title = title;
-    this.columns = [
-      {
-        id: uuid(),
-        title: columns[0].title,
-        order: columns[0].order
-      }
-    ];
+    this.columns = Board.addColumns(columns);
+  }
+  static addColumns(columns) {
+    const arr = [];
+    const id = uuid();
+    for (let i = 0; i < columns.length; i++) {
+      const { title, order } = columns[i];
+      arr.push({
+        id,
+        title,
+        order
+      });
+    }
+    return arr;
   }
 }
 
