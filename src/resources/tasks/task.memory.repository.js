@@ -1,23 +1,4 @@
-const data = [
-  {
-    id: '11',
-    title: 'task1',
-    order: 0,
-    description: 'first task',
-    userId: '15',
-    boardId: '55',
-    columnId: '66'
-  },
-  {
-    id: '222',
-    title: 'task2',
-    order: 1,
-    description: 'second task',
-    userId: '15',
-    boardId: '55',
-    columnId: '66'
-  }
-];
+const data = [];
 
 const getTaskByBoardId = boardId =>
   data.filter(item => item.boardId === boardId);

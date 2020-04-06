@@ -1,10 +1,4 @@
-const data = [
-  {
-    id: '55',
-    title: 'board',
-    columns: [{ id: '45353', title: 'column', order: 0 }]
-  }
-];
+const data = [];
 
 const getAll = async () => {
   return data;
