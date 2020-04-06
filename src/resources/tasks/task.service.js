@@ -3,33 +3,33 @@ const Task = require('./task.model.js');
 
 const getTaskByBoardId = boardId => tasksRepo.getTaskByBoardId(boardId);
 
-const getTaskByBoardIdTaskId = (boardId, taskId) =>
-  tasksRepo.getTaskByBoardIdTaskId(boardId, taskId);
+const getTaskByBoardIdTaskId = (taskId, boardId) =>
+  tasksRepo.getTaskByBoardIdTaskId(taskId, boardId);
+
+const getTaskByUserId = userId => tasksRepo.getTaskByUserId(userId);
 
 const addTask = (boardId, params) => {
-  const { title, order, description, userid, columnId } = params;
+  const { title, order, description, userId, columnId } = params;
   const task = new Task({
     title,
     order,
     description,
-    userid,
+    userId,
     boardId,
     columnId
   });
   return tasksRepo.addTask(task);
 };
 
-const updateTask = (id, params) => {
-  tasksRepo.updateTask(id, params);
-};
+const updateTask = (taskId, boardId, params) =>
+  tasksRepo.updateTask(taskId, boardId, params);
 
-const deleteTask = id => {
-  tasksRepo.deleteTask(id);
-};
+const deleteTask = id => tasksRepo.deleteTask(id);
 
 module.exports = {
   getTaskByBoardId,
   getTaskByBoardIdTaskId,
+  getTaskByUserId,
   addTask,
   updateTask,
   deleteTask

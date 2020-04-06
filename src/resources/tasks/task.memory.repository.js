@@ -1,28 +1,63 @@
-const data = [];
+const data = [
+  {
+    id: '11',
+    title: 'task1',
+    order: 0,
+    description: 'first task',
+    userId: '15',
+    boardId: '55',
+    columnId: '66'
+  },
+  {
+    id: '222',
+    title: 'task2',
+    order: 1,
+    description: 'second task',
+    userId: '15',
+    boardId: '55',
+    columnId: '66'
+  }
+];
 
-const getTaskByBoardId = boardId => {
-  return data.find(item => item.boardId === boardId);
+const getTaskByBoardId = boardId =>
+  data.filter(item => item.boardId === boardId);
+
+const getTaskByBoardIdTaskId = (taskId, boardId) => {
+  return data.find(item => item.id === taskId && item.boardId === boardId);
 };
 
-const getTaskByBoardIdTaskId = (boardId, taskId) => {
-  return data.find(item => item.boardId === boardId && item.id === taskId);
-};
+const getTaskByUserId = userId => data.filter(item => item.userId === userId);
 
 const addTask = params => {
-  const { id, title, order, description, userid, boardId, columnId } = params;
+  const { id, title, order, description, userId, boardId, columnId } = params;
   data.push({
     id,
     title,
     order,
     description,
-    userid,
+    userId,
     boardId,
     columnId
   });
-  return getTaskByBoardId(params.boardId);
+  return getTaskByBoardIdTaskId(id, boardId);
 };
 
-// const updateTask = (id, params) => {};
+const updateTask = (id, boardId, params) => {
+  const { title, order, description, userId, columnId } = params;
+  const index = data.findIndex(
+    item => item.id === id && item.boardId === boardId
+  );
+  data.splice(index, 1, {
+    id,
+    title,
+    order,
+    description,
+    boardId,
+    userId,
+    columnId
+  });
+  return getTaskByBoardIdTaskId(id, boardId);
+};
 
 const deleteTask = (boardId, taskId) => {
   if (!getTaskByBoardIdTaskId(boardId, taskId)) return false;
@@ -35,6 +70,8 @@ const deleteTask = (boardId, taskId) => {
 module.exports = {
   getTaskByBoardId,
   getTaskByBoardIdTaskId,
+  getTaskByUserId,
   addTask,
+  updateTask,
   deleteTask
 };

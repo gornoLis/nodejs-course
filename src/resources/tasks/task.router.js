@@ -6,7 +6,7 @@ router
   .route('/')
   .get(async (req, res) => {
     const tasks = await tasksService.getTaskByBoardId(req.params.boardId);
-    res.json(Task.toResponse(tasks));
+    res.json(tasks.map(Task.toResponse));
   })
   .post((req, res) => {
     const task = tasksService.addTask(req.params.boardId, req.body);
@@ -16,11 +16,12 @@ router
       res.status(400).end('Bad request');
     }
   });
+
 router
   .route('/:taskId')
   .get((req, res) => {
     const { boardId, taskId } = req.params;
-    const task = tasksService.getTaskByBoardIdTaskId(boardId, taskId);
+    const task = tasksService.getTaskByBoardIdTaskId(taskId, boardId);
     if (task) {
       res.json(Task.toResponse(task));
     } else {
@@ -28,7 +29,10 @@ router
     }
   })
   .put((req, res) => {
-    res.end('put');
+    const { boardId, taskId } = req.params;
+    const task = tasksService.updateTask(taskId, boardId, req.body);
+    // console.log('update task: \n' + task);
+    res.json(Task.toResponse(task));
   })
   .delete((req, res) => {
     res.end('delete');
