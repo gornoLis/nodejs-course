@@ -24,7 +24,7 @@ router
     if (task) {
       res.json(task);
     } else {
-      res.end('Bad request');
+      res.status(404).end('Not found');
     }
   })
   .put((req, res) => {

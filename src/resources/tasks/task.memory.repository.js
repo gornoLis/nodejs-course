@@ -61,7 +61,6 @@ const updateTask = (id, boardId, params) => {
 
 const deleteTask = (boardId, taskId) => {
   if (!getTaskByBoardIdTaskId(boardId, taskId)) return false;
-  if (!getTaskByBoardId(boardId)) return false;
 
   const index = data.findIndex(
     item => item.boardId === boardId && item.id === taskId
