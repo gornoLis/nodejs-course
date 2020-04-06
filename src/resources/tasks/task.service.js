@@ -3,8 +3,8 @@ const Task = require('./task.model.js');
 
 const getTaskByBoardId = boardId => tasksRepo.getTaskByBoardId(boardId);
 
-const getTaskByBoardIdTaskId = (taskId, boardId) =>
-  tasksRepo.getTaskByBoardIdTaskId(taskId, boardId);
+const getTaskByBoardIdTaskId = (boardId, taskId) =>
+  tasksRepo.getTaskByBoardIdTaskId(boardId, taskId);
 
 const getTaskByUserId = userId => tasksRepo.getTaskByUserId(userId);
 

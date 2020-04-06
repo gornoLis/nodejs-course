@@ -21,7 +21,7 @@ router
   .route('/:taskId')
   .get((req, res) => {
     const { boardId, taskId } = req.params;
-    const task = tasksService.getTaskByBoardIdTaskId(taskId, boardId);
+    const task = tasksService.getTaskByBoardIdTaskId(boardId, taskId);
     if (task) {
       res.json(Task.toResponse(task));
     } else {

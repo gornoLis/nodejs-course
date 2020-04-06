@@ -22,7 +22,7 @@ const data = [
 const getTaskByBoardId = boardId =>
   data.filter(item => item.boardId === boardId);
 
-const getTaskByBoardIdTaskId = (taskId, boardId) => {
+const getTaskByBoardIdTaskId = (boardId, taskId) => {
   return data.find(item => item.id === taskId && item.boardId === boardId);
 };
 
@@ -39,7 +39,7 @@ const addTask = params => {
     boardId,
     columnId
   });
-  return getTaskByBoardIdTaskId(id, boardId);
+  return getTaskByBoardIdTaskId(boardId, id);
 };
 
 const updateTask = (id, boardId, params) => {
@@ -56,7 +56,7 @@ const updateTask = (id, boardId, params) => {
     userId,
     columnId
   });
-  return getTaskByBoardIdTaskId(id, boardId);
+  return getTaskByBoardIdTaskId(boardId, id);
 };
 
 const deleteTask = (boardId, taskId) => {
