@@ -4,11 +4,11 @@ class Task {
   constructor({
     id = uuid(),
     title = 'title',
-    order = 'order',
+    order = 0,
     description = 'description',
-    userId = 'userId', // assignee
-    boardId = 'boardId',
-    columnId = '0'
+    userId = null, // assignee
+    boardId = null,
+    columnId = null
   } = {}) {
     this.id = id;
     this.title = title;
@@ -17,10 +17,6 @@ class Task {
     this.userId = userId; // assignee
     this.boardId = boardId;
     this.columnId = columnId;
-  }
-  static toResponse(task) {
-    const { id, title, order, description, userId } = task;
-    return { id, title, order, description, userId };
   }
 }
 

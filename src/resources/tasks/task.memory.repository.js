@@ -61,11 +61,15 @@ const updateTask = (id, boardId, params) => {
 
 const deleteTask = (boardId, taskId) => {
   if (!getTaskByBoardIdTaskId(boardId, taskId)) return false;
+  if (!getTaskByBoardId(boardId)) return false;
+
   const index = data.findIndex(
     item => item.boardId === boardId && item.id === taskId
   );
-  data.splice(index, 1);
-  return true;
+  if (data.splice(index, 1)) {
+    return true;
+  }
+  return false;
 };
 module.exports = {
   getTaskByBoardId,
