@@ -14,7 +14,6 @@ router
     } else {
       res.status(400).end('Bad request');
     }
-    res.end('aa');
   });
 
 router
@@ -29,7 +28,11 @@ router
   })
   .put((req, res) => {
     const board = boardsService.updateBoard(req.params.id, req.body);
-    res.json(board);
+    if (board) {
+      res.status(200).json(board);
+    } else {
+      res.status(400).end('Bad request');
+    }
   })
   .delete((req, res) => {
     const isDeleted = boardsService.deleteBoard(req.params.id);
