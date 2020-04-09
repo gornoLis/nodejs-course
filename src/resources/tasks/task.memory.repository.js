@@ -10,33 +10,15 @@ const getTaskByBoardIdTaskId = (boardId, taskId) => {
 const getTaskByUserId = userId => data.filter(item => item.userId === userId);
 
 const addTask = params => {
-  const { id, title, order, description, userId, boardId, columnId } = params;
-  data.push({
-    id,
-    title,
-    order,
-    description,
-    userId,
-    boardId,
-    columnId
-  });
-  return getTaskByBoardIdTaskId(boardId, id);
+  data.push({ ...params });
+  return getTaskByBoardIdTaskId(params.boardId, params.id);
 };
 
 const updateTask = (id, boardId, params) => {
-  const { title, order, description, userId, columnId } = params;
   const index = data.findIndex(
     item => item.id === id && item.boardId === boardId
   );
-  data.splice(index, 1, {
-    id,
-    title,
-    order,
-    description,
-    boardId,
-    userId,
-    columnId
-  });
+  data.splice(index, 1, { id, boardId, ...params });
   return getTaskByBoardIdTaskId(boardId, id);
 };
 

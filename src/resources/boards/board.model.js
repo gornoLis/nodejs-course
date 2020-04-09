@@ -20,12 +20,7 @@ class Board {
     const arr = [];
     const id = uuid();
     for (let i = 0; i < columns.length; i++) {
-      const { title, order } = columns[i];
-      arr.push({
-        id,
-        title,
-        order
-      });
+      arr.push({ id, ...columns[i] });
     }
     return arr;
   }

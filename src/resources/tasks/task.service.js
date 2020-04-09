@@ -9,16 +9,8 @@ const getTaskByBoardIdTaskId = (boardId, taskId) =>
 const getTaskByUserId = userId => tasksRepo.getTaskByUserId(userId);
 
 const addTask = (boardId, params) => {
-  const { title, order, description, userId, columnId } = params;
-  const task = new Task({
-    title,
-    order,
-    description,
-    userId,
-    boardId,
-    columnId
-  });
-  return tasksRepo.addTask(task);
+  params.boardId = boardId;
+  return tasksRepo.addTask(new Task({ ...params }));
 };
 
 const updateTask = (taskId, boardId, params) =>

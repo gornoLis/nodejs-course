@@ -7,24 +7,17 @@ const getAll = () => usersRepo.getAll();
 const getUser = id => usersRepo.getUser(id);
 
 // create user
-const addUser = params => {
-  const user = new User({
-    name: params.name,
-    login: params.login,
-    password: params.password
-  });
-  return usersRepo.addUser(user);
-};
+const addUser = params => usersRepo.addUser(new User({ ...params }));
 
 const updateUser = (id, params) => usersRepo.updateUser(id, params);
 
-const deleteUser = id => {
-  const tasks = tasksService.getTaskByUserId(id);
+const deleteUser = async userId => {
+  const tasks = await tasksService.getTaskByUserId(userId);
   for (let i = 0; i < tasks.length; i++) {
-    tasks[i].userId = null;
-    tasksService.updateTask(tasks[i].id, tasks[i].boardId, tasks[i]);
+    const { id, boardId } = tasks[i];
+    tasksService.updateTask(id, boardId, { ...tasks[i], userId: null });
   }
-  const isDeleted = usersRepo.deleteUser(id);
+  const isDeleted = usersRepo.deleteUser(userId);
   return isDeleted;
 };
 

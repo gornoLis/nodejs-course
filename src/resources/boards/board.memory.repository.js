@@ -4,36 +4,28 @@ const getAll = async () => {
   return data;
 };
 
-const getBoard = id => {
+const getBoard = async id => {
   return data.find(item => item.id === id);
 };
 
-const addBoard = params => {
-  const { id, title, columns } = params;
-  data.push({
-    id,
-    title,
-    columns
-  });
-  return getBoard(id);
+const addBoard = async params => {
+  await data.push({ ...params });
+  return getBoard(params.id);
 };
 
-const updateBoard = (id, params) => {
-  const { title, columns } = params;
+const updateBoard = async (id, params) => {
   const index = data.findIndex(item => item.id === id);
-  data.splice(index, 1, {
-    id,
-    title,
-    columns
-  });
+  data.splice(index, 1, { id, ...params });
   return getBoard(id);
 };
 
-const deleteBoard = id => {
+const deleteBoard = async id => {
   if (!getBoard(id)) return false;
   const index = data.findIndex(item => item.id === id);
-  data.splice(index, 1);
-  return true;
+  if (data.splice(index, 1)) {
+    return true;
+  }
+  return false;
 };
 
 module.exports = { getAll, getBoard, addBoard, updateBoard, deleteBoard };

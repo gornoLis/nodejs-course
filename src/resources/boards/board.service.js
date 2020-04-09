@@ -6,20 +6,13 @@ const getAll = () => boardsRepo.getAll();
 
 const getBoard = id => boardsRepo.getBoard(id);
 
-const addBoard = params => {
-  const { title, columns } = params;
-  const board = new Board({
-    title,
-    columns
-  });
-  return boardsRepo.addBoard(board);
-};
+const addBoard = params => boardsRepo.addBoard(new Board({ ...params }));
 
 const updateBoard = (id, params) => boardsRepo.updateBoard(id, params);
 
-const deleteBoard = id => {
+const deleteBoard = async id => {
   if (boardsRepo.getBoard(id)) {
-    const tasks = tasksService.getTaskByBoardId(id);
+    const tasks = await tasksService.getTaskByBoardId(id);
     for (let i = 0; i < tasks.length; i++) {
       tasksService.deleteTask(id, tasks[i].id);
     }

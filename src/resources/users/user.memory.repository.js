@@ -12,30 +12,16 @@ const getAll = async () => {
   return data;
 };
 
-const getUser = id => {
-  return data.find(one => one.id === id);
+const getUser = id => data.find(one => one.id === id);
+
+const addUser = async user => {
+  await data.push({ ...user });
+  return getUser(user.id);
 };
 
-const addUser = user => {
-  const { id, name, login, password } = user;
-  data.push({
-    id,
-    name,
-    login,
-    password
-  });
-  return getUser(id);
-};
-
-const updateUser = (id, params) => {
-  const { name, login, password } = params;
+const updateUser = async (id, params) => {
   const index = data.findIndex(item => item.id === id);
-  data.splice(index, 1, {
-    id,
-    name,
-    login,
-    password
-  });
+  await data.splice(index, 1, { id, ...params });
   return getUser(id);
 };
 
@@ -43,8 +29,10 @@ const deleteUser = id => {
   if (!getUser(id)) return false;
 
   const index = data.findIndex(item => item.id === id);
-  data.splice(index, 1);
-  return true;
+  if (data.splice(index, 1)) {
+    return true;
+  }
+  return false;
 };
 
 module.exports = { getAll, getUser, addUser, updateUser, deleteUser };
