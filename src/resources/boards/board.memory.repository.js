@@ -22,10 +22,8 @@ const updateBoard = async (id, params) => {
 const deleteBoard = async id => {
   if (!getBoard(id)) return false;
   const index = data.findIndex(item => item.id === id);
-  if (data.splice(index, 1)) {
-    return true;
-  }
-  return false;
+  data.splice(index, 1);
+  return true;
 };
 
 module.exports = { getAll, getBoard, addBoard, updateBoard, deleteBoard };

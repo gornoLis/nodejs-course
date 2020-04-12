@@ -11,13 +11,13 @@ const addBoard = params => boardsRepo.addBoard(new Board({ ...params }));
 const updateBoard = (id, params) => boardsRepo.updateBoard(id, params);
 
 const deleteBoard = async id => {
-  if (boardsRepo.getBoard(id)) {
+  if (await boardsRepo.getBoard(id)) {
     const tasks = await tasksService.getTaskByBoardId(id);
     for (let i = 0; i < tasks.length; i++) {
-      tasksService.deleteTask(id, tasks[i].id);
+      await tasksService.deleteTask(id, tasks[i].id);
     }
   }
-  return boardsRepo.deleteBoard(id);
+  return await boardsRepo.deleteBoard(id);
 };
 
 module.exports = { getAll, getBoard, addBoard, updateBoard, deleteBoard };
