@@ -1,4 +1,4 @@
-const boardsRepo = require('./board.memory.repository');
+const boardsRepo = require('./board.db.repository');
 const Board = require('./board.model');
 const tasksService = require('../tasks/task.service');
 
