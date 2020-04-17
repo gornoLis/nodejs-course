@@ -39,7 +39,10 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      await usersService.deleteUser(req.params.id);
+      const deletedCount = await usersService.deleteUser(req.params.id);
+      if (deletedCount < 0) {
+        return next(createError.NotFound());
+      }
       res.status(204).end('The user has been deleted');
     } catch (error) {
       return next(createError.NotFound());
