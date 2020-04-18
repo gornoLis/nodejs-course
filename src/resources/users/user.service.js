@@ -14,8 +14,8 @@ const updateUser = (id, params) => usersRepo.updateUser(id, params);
 const deleteUser = async userId => {
   const tasks = await tasksService.getTaskByUserId(userId);
   for (let i = 0; i < tasks.length; i++) {
-    const { id, boardId } = tasks[i];
-    tasksService.updateTask(id, boardId, { ...tasks[i], userId: null });
+    const { _id, boardId } = tasks[i];
+    tasksService.updateTask(_id, boardId, { ...tasks[i], userId: null });
   }
   const deletedCount = usersRepo.deleteUser(userId);
   return deletedCount;

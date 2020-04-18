@@ -34,7 +34,7 @@ morgan.token('body', (req, res) => {
   return JSON.stringify(req.body);
 });
 
-app.use(morgan(':url :params :body'));
+app.use(morgan(':method :url :params :body'));
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
